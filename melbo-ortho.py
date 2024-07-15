@@ -99,7 +99,7 @@ def project_onto_orthogonal_subspace(v: Float[torch.Tensor, "d_model"], prev: Fl
     U = prev.t() / R
     return v - U @ U.t() @ v
 # including this just for completeness
-def refine_theta(prompt: str, pretrained_theta: Float[torch.Tensor, "d_model"], target_later: Float[torch.Tensor, "d_model"], make_ortho_to: Float[torch.Tensor, "n d_model"], refine_epochs: int = 1000, enforce_orthogonality=True):
+def melbo_ortho(prompt: str, pretrained_theta: Float[torch.Tensor, "d_model"], target_later: Float[torch.Tensor, "d_model"], make_ortho_to: Float[torch.Tensor, "n d_model"], refine_epochs: int = 1000, enforce_orthogonality=True):
     ortho_to_normalized = torch.nn.functional.normalize(make_ortho_to, dim=1)
     model.reset_hooks()
     pretrained_theta = pretrained_theta.to(dev)
